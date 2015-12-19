@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+
+
+{% block content %}
+
+
+    <style>
+
+        body {
+
+            background: linear-gradient(#d4d9e9, #ffffff);
+        }
+
+
+    </style>
+
+
+<div class="row">
+
+    <div class="col-md-4" id="test1">
+
+        <h3 id="landingcap">Facebook helps you connect and wastes your entire fucking life.</h3>
+        <img src="/media/images/logo.png">
+    </div>
+
+     <div class="col-md-3">
+    </div>
+
+
+    <div class="col-md-5" id="test">
+
+        <h2> Create an account </h2>
+        <form action="/accounts/register/" method="post">{% csrf_token %}
+
+            {{ form | as_bootstrap  }}
+
+
+        <button type="submit" class="btn btn-success" id="createaccount">Create Account</button>
+
+
+        </form>
+
+
+
+    </div>
+
+
+</div>
+
+
+{%  endblock content %}
+

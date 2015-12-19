@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+
+{% block content %}
+
+
+
+
+
+<div class="row">
+
+    <div class="col-md-12" id="test1">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <img {% if var.userprofile.profimg %}src="{{ var.userprofile.profimg.url }}"{% else %} src="/media/images/default.jpg" {% endif %} width = "200" height = "200" />
+                <h2 id="usernamefont">{{ var.first_name }} {{ var.last_name }}</h2>
+                {%  if switch and not thereisfriend and not me %}
+                <span id="pokeadd" style="position: absolute; bottom: 0; right: 10px;"><a href="{%  url "createfriend" var.id %}" class="btn btn-default btn-md" style="margin-right: 20px; background: #5972a7; color: white;">Add Friend</a><a href="{%  url "createpoke" var.id %}" class="btn btn-default btn-md" style="background: #5972a7; color: white;">Poke</a></span>
+                {%  endif %}
+                {% if switch and thereisfriend %}
+                <span id="pokeadd" style="position: absolute; bottom: 0; right: 10px;"><button class="btn btn-default btn-md" style="margin-right: 20px; background: #5cb85c; color: white;">{{ var.first_name }} is your friend</button><a href="{%  url "createpoke" var.id %}" class="btn btn-default btn-md" style="background: #5972a7; color: white;">Poke</a></span>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+        <div class="col-md-4">
+
+            <div id="details">
+
+               <ul id="detailslist">
+
+                    <li class="list"><span class="glyphicon glyphicon-education" aria-hidden="true"></span>  Studies at {{ var.userprofile.university }} </li>
+                    <li class="list"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Lives in {{ var.userprofile.living }} </li>
+                    <li class="list"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>  Relationship status: {{ var.userprofile.rel_status }}</li>
+                    <li class="list"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>  Status: {{ var.userprofile.status }}</li>
+
+                </ul>
+
+
+            </div>
+
+            <div id="users">
+
+                <h5 style="color: #48649f; font-family: Arial; margin-left: 15px; font-size: 12px;"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Friends</h5>
+
+
+
+                
+                <div style="margin-left: 15px;">
+                    {%  for  friend in thefriends  %}
+
+                        {% if friend.creator == var %}
+
+                                  <a href="/profile/{{ friend.friend.id }}"><input data-toggle="tooltip" title="{{ friend.friend.username }}" data-delay='{"show":"0", "hide":"0"}' type="image" src="/media/{{ friend.friend.userprofile.profimg }}" width = "50" height = "50"></a>
+
+                        {%  endif %}
+                        {% if friend.friend == var %}
+
+                                  <a href="/profile/{{ friend.creator.id }}"><input data-toggle="tooltip" title="{{ friend.creator.username }}" data-delay='{"show":"0", "hide":"0"}' type="image" src="/media/{{ friend.creator.userprofile.profimg }}" width = "50" height = "50"></a>
+
+                        {%  endif %}
+
+
+
+                    {% endfor %}
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+         <div class="col-md-8">
+
+
+             <div id="statuses">
+
+                {%  if not switch %}
+                <div id="statusinput">
+
+
+
+                    <form action="{% url 'profile' %}" method="post">{% csrf_token %}
+
+                        {{ form|as_bootstrap }}
+
+                    <button id="updatestatus" type="submit">Update Status <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span></button>
+
+
+                    </form>
+
+
+                </div>
+                {% endif %}
+
+
+
+                {%  for post in posts %}
+                    {% if not switch %}
+                    <div id="statuspanel">
+                    {% endif %}
+
+                    {% if switch %}
+                    <div id="statuspanel" style="margin-top: 0; margin-bottom: 25px;">
+                    {% endif %}
+
+
+
+                        <div class='statusbox'>
+                            <h3 id="author"><img style="margin-right: 10px;" src="{{ post.author.userprofile.profimg.url }}" width = "30" height = "30" /> {{ post.author }} <span style="margin-left: 150px;">{{ post.created_date }}</span> <span style="font-size: 20px; float: right">Score: {{ post.likes }}</span></h3>
+                            <p class="statustext">{{ post.content }}</p>
+
+
+                            {% if switch %}
+                            <a href="{%  url "like" post.id %}" class="btn btn-default btn-xs" id="likebutton">Like <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+                            <a href="{%  url "dislike" post.id %}" class="btn btn-default btn-xs" id="dislikebutton">Dislike <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+
+                            {% endif %}
+
+                            {% if not switch %}
+                            <button class="btn btn-default btn-xs" id="likebutton">Like <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                            <button class="btn btn-default btn-xs" id="dislikebutton">Dislike <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </div>
+
+
+                {%  endfor %}
+                {%  if not posts %}
+
+                    <div id="statuspanel" style="margin-top: 0; margin-bottom: 25px;">
+
+                        <div class='statusbox'>
+                            <p class = "statustext"> This user has no posts yet </p>
+
+
+                        </div>
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+</div>
+
+
+{%  endblock %}

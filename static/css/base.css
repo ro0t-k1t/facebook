@@ -1,0 +1,85 @@
+body {
+
+    background: #e9eaed;
+    min-height: 100%;
+
+}
+.navbar {
+
+    background:  #3a5795;
+
+}
+
+.navbar-default .navbar-brand {
+
+    color: white;
+    font-size: 25px;
+    font-family: Arial;
+    letter-spacing: 2px;
+
+}
+
+.navbar-default .navbar-nav>li>a {
+
+    color: white;
+
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+
+    color: white;
+    background-color: #48649f;
+
+}
+
+
+
+ul.nav.navbar-nav.navbar-right li {
+
+    margin-left: 20px;
+    margin-top: 10px;
+
+}
+
+.logininput {
+
+    border-radius: 1px;
+    border: none;
+    padding: 3px;
+    padding-left: 7px;
+    font-family: Arial;
+
+}
+
+#loginbutton {
+
+    margin-top: 5px;
+    color: white;
+    background: #5972a7;
+    font-size: 11px;
+    font-family: Arial;
+    border: none;
+
+}
+
+#loginbutton:focus {
+
+    outline: none;
+    box-shadow: none;
+
+}
+
+
+
+
+.navbar-default .navbar-toggle .icon-bar {
+
+    background-color: white;
+
+}
+
+
+
+
+
+
