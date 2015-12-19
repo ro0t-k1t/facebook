@@ -6,9 +6,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n4az=5u3dvrf99fg)u!!xte3frzts7r3kp4%jpw-941_m6d3a+'
 
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = (
@@ -58,8 +58,12 @@ WSGI_APPLICATION = 'Facebook_NEW.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'facebookdb',
+        'USER': 'ronan',
+        'PASSWORD': 'apple',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -77,10 +81,15 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
+
+try:
+    from local_settings import  *
+except:
+    pass
